@@ -35,7 +35,7 @@ const Gunslinger = {
 
 let isPlaying = false;
 
-const playlist = [aLittlePiece,AndAllThings];
+const playlist = [aLittlePiece,AndAllThings,Gunslinger,DearGod];
 let index = 0;
 
 function playSong(){
