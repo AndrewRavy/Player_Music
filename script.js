@@ -21,6 +21,18 @@ const AndAllThings = {
     file : 'And-All-Things-Will-End'
 };
 
+const DearGod = {
+    songName : 'Dear God',
+    artist : 'Avenged Sevenfold',
+    file : 'Dear God'
+};
+
+const Gunslinger = {
+    songName : 'Gunslinger',
+    artist : 'Avenged Sevenfold',
+    file : 'Gunslinger'
+};
+
 let isPlaying = false;
 
 const playlist = [aLittlePiece,AndAllThings];
