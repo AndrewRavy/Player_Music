@@ -7,6 +7,7 @@ const next = document.getElementById('next');
 const previous = document.getElementById('previous');
 const currentProgress = document.getElementById('current-progress');
 const progressContainer = document.getElementById('progress-container');
+const shuffleButton = document.getElementById('shuffle');
 
 
 const aLittlePiece = {
@@ -22,9 +23,9 @@ const AndAllThings = {
 };
 
 const DearGod = {
-    songName : 'Dear God',
+    songName : 'DearGod',
     artist : 'Avenged Sevenfold',
-    file : 'Dear God'
+    file : 'DearGod'
 };
 
 const Gunslinger = {
@@ -62,7 +63,7 @@ function playPauseDecider(){
 }
 
 function initializeSong(){
-    cover.src = `imagens/${playlist[index].file}.jpeg`;
+    cover.src = `Imagens/${playlist[index].file}.jpeg`;
     song.src = `songs/${playlist[index].file}.mp3`;
     songName.innerText = playlist[index].songName;
     bandName.innerText = playlist[index].artist;
@@ -73,7 +74,7 @@ function previousSong(){
         index = playlist.length - 1;
     }
     else {
-        inde -= 1;
+        index -= 1;
     }
     initializeSong();
     playSong();
@@ -84,7 +85,7 @@ function nextSong(){
         index = 0;
     }
     else {
-        inde += 1;
+        index += 1;
     }
     initializeSong();
     playSong();
@@ -102,6 +103,10 @@ function jumpTo(event){
     song.currentTime = jumpToTime;
 }
 
+function shuffleButtonClicked(){
+    
+}
+
 initializeSong();
 play.addEventListener('click', playPauseDecider);
 previous.addEventListener('click', previousSong);
@@ -109,3 +114,4 @@ next.addEventListener('click', nextSong);
 
 song.addEventListener('timeupdate', updateProgressBar)
 progressContainer.addEventListener('click', jumpTo);
+shuffleButton.addEventListener('click', shuffleButtonClicked);
