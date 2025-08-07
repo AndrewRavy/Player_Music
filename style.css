@@ -84,3 +84,9 @@ button {
     padding-bottom: 1em;
     cursor: pointer;
 }
+
+.button-active {
+    color: rgb(10, 238, 21);
+}
+
+
