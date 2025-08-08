@@ -5,6 +5,7 @@ const cover = document.getElementById('cover');
 const play = document.getElementById('play');
 const next = document.getElementById('next');
 const previous = document.getElementById('previous');
+const likeButton = document.getElementById('like');
 const currentProgress = document.getElementById('current-progress');
 const progressContainer = document.getElementById('progress-container');
 const shuffleButton = document.getElementById('shuffle');
@@ -17,32 +18,36 @@ const totalTime = document.getElementById('total-time');
 const aLittlePiece = {
     songName : 'A Little Piece Of Heaven',
     artist : 'Avenged Sevenfold',
-    file : 'a-little-piece-of-heaven'
+    file : 'a-little-piece-of-heaven',
+    liked : false,
 };
 
 const AndAllThings = {
     songName : 'And All Things Will End',
     artist : 'Avenged Sevenfold',
-    file : 'And-All-Things-Will-End'
+    file : 'And-All-Things-Will-End',
+    liked : false,
 };
 
 const DearGod = {
     songName : 'DearGod',
     artist : 'Avenged Sevenfold',
-    file : 'DearGod'
+    file : 'DearGod',
+    liked : false,
 };
 
 const Gunslinger = {
     songName : 'Gunslinger',
     artist : 'Avenged Sevenfold',
-    file : 'Gunslinger'
+    file : 'Gunslinger',
+    liked : false,
 };
 
 let isPlaying = false;
 let isShuffled = false;
 let repeatOn = false;
 
-const playlist = [aLittlePiece,AndAllThings,Gunslinger,DearGod];
+const playlist = JSON.parse(localStorage.getItem('playlistLiked')) ?? [aLittlePiece,AndAllThings,Gunslinger,DearGod];
 let sortedPlaylist = [...playlist];
 let index = 0;
 
@@ -69,11 +74,25 @@ function playPauseDecider(){
     }
 }
 
+function likeButtonRender(){
+    if(sortedPlaylist[index].liked === true){
+        likeButton.querySelector('.bi').classList.remove('bi-heart');
+        likeButton.querySelector('.bi').classList.add('bi-heart-fill');
+        likeButton.classList.add('button-active');
+    }
+    else {
+        likeButton.querySelector('.bi').classList.add('bi-heart');
+        likeButton.querySelector('.bi').classList.remove('bi-heart-fill');
+        likeButton.classList.remove('button-active');
+    }
+}
+
 function initializeSong(){
     cover.src = `Imagens/${sortedPlaylist[index].file}.jpeg`;
     song.src = `songs/${sortedPlaylist[index].file}.mp3`;
     songName.innerText = sortedPlaylist[index].songName;
     bandName.innerText = sortedPlaylist[index].artist;
+    likeButtonRender();
 }
 
 function previousSong(){
@@ -169,6 +188,17 @@ function updateTotalTime(){
     totalTime.innerText = toHHMMSS(song.duration);
 }
 
+function likeButtonClicked(){
+    if(sortedPlaylist[index].liked === false){
+        sortedPlaylist[index].liked = true;
+    }
+    else {
+        sortedPlaylist[index].liked = false;
+    }
+    likeButtonRender();
+    localStorage.setItem('playlistLiked',JSON.stringify(playlist));
+}
+
 initializeSong();
 play.addEventListener('click', playPauseDecider);
 previous.addEventListener('click', previousSong);
@@ -181,4 +211,5 @@ song.addEventListener('loadedmetadata', updateTotalTime);
 progressContainer.addEventListener('click', jumpTo);
 shuffleButton.addEventListener('click', shuffleButtonClicked);
 repeatButton.addEventListener('click', repeatButtonClicked);
+likeButton.addEventListener('click', likeButtonClicked);
 
